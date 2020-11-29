@@ -12,6 +12,15 @@ const getAll = async () => {
   return response.data;
 };
 
+const getPlayers = async (tournament) => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+
+  const response = await axios.get(`${baseUrl}/${tournament.id}/players`, config);
+  return response.data;
+};
+
 const create = async newTournament  => {
   const config = {
     headers: { Authorization: authorizationHeader }
@@ -33,4 +42,4 @@ const setToken = token => {
   authorizationHeader = `bearer ${token}`;
 };
 
-export default { getAll, create, remove, setToken };
+export default { getAll, getPlayers, create, remove, setToken };
