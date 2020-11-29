@@ -20,7 +20,7 @@ const Tournaments = () => {
         tournaments
           .map(tournament =>
             <div key={tournament.id}>
-              <div>{tournament.name}<button onClick={() => handleDeleteTournament(tournament)}>Delete</button></div>
+              <div><Link to={`/tournaments/${tournament.id}`}>{tournament.name}</Link><button onClick={() => handleDeleteTournament(tournament)}>Delete</button></div>
             </div>)
       }
     </div>
