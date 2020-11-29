@@ -10,7 +10,7 @@ const CreateTournament = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    console.log(event.target);
+
     dispatch(createTournament({ name: event.target.tournamentName.value }));
 
     history.push('/tournaments');
@@ -22,7 +22,7 @@ const CreateTournament = () => {
       <input id='create-tournament-name'
         name='tournamentName' />
       <div>
-        <button primary type="submit">Create</button>
+        <button type="submit">Create</button>
       </div>
     </form>
   );

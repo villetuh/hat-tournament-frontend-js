@@ -1,14 +1,14 @@
 import React from 'react';
 
-const Players = ({ players }) => {
+const Players = ({ players, deletePlayer }) => {
+
   return (
     <div>
-      <h3>Players</h3>
       {
         players && players
           .map(player =>
             <div key={player.id}>
-              <div>{player.name}</div>
+              <div>{player.name}<button onClick={() => deletePlayer(player)}>Delete</button></div>
             </div>)
       }
     </div>
