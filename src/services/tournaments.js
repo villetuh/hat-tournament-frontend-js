@@ -21,8 +21,16 @@ const create = async newTournament  => {
   return response.data;
 };
 
+const remove = async (tournament) => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+  const response = await axios.delete(`${baseUrl}/${tournament.id}`, config);
+  return response.data;
+};
+
 const setToken = token => {
   authorizationHeader = `bearer ${token}`;
 };
 
-export default { getAll, create, setToken };
+export default { getAll, create, remove, setToken };

@@ -1,9 +1,16 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
+import { deleteTournament } from '../reducers/tournamentReducer';
+
 const Tournaments = () => {
+  const dispatch = useDispatch();
   const tournaments = useSelector(state => state.tournaments);
+
+  const handleDeleteTournament = (tournament) => {
+    dispatch(deleteTournament(tournament));
+  };
 
   return (
     <div>
@@ -13,7 +20,7 @@ const Tournaments = () => {
         tournaments
           .map(tournament =>
             <div key={tournament.id}>
-              <div>{tournament.name}</div>
+              <div>{tournament.name}<button onClick={() => handleDeleteTournament(tournament)}>Delete</button></div>
             </div>)
       }
     </div>
