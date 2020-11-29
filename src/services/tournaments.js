@@ -54,8 +54,33 @@ const removePlayer = async (tournament, player) => {
   return response.data;
 };
 
+const getPlayerPools = async (tournament) => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+
+  const response = await axios.get(`${baseUrl}/${tournament.id}/playerpools`, config);
+  return response.data;
+};
+
+const createPlayerPool = async (tournament, playerPool)  => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+  const response = await axios.post(`${baseUrl}/${tournament.id}/playerpools`, playerPool, config);
+  return response.data;
+};
+
+const removePlayerPool = async (tournament, playerPool) => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+  const response = await axios.delete(`${baseUrl}/${tournament.id}/playerpools/${playerPool.id}`, config);
+  return response.data;
+};
+
 const setToken = token => {
   authorizationHeader = `bearer ${token}`;
 };
 
-export default { getAll, create, remove, getPlayers, createPlayer, removePlayer, setToken };
+export default { getAll, create, remove, getPlayers, createPlayer, removePlayer, getPlayerPools, createPlayerPool, removePlayerPool, setToken };
