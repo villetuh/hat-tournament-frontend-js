@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import loginService from '../services/login';
+import tournamentService from '../services/tournaments';
 
 import { clearCurrentUser, setCurrentUser } from '../reducers/userReducer';
 
@@ -13,7 +14,7 @@ const LoginControl = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser.user);
 
-  const loggedInUserStorageKey = 'loggedInUser';
+  const loggedInUserStorageKey = 'loggedInHatAppUser';
 
   useEffect(() => {
     const storedUserJSON = window.localStorage.getItem(loggedInUserStorageKey);
@@ -25,6 +26,8 @@ const LoginControl = () => {
     const userId = JSON.parse(atob(user.token.split('.')[1])).id;
     dispatch(setCurrentUser(userId, user));
 
+    tournamentService.setToken(user.token);
+
   }, [dispatch]);
 
   const loginUser = async (username, password) => {
@@ -33,6 +36,8 @@ const LoginControl = () => {
       const user = await loginService.login({ username, password });
       const userId = JSON.parse(atob(user.token.split('.')[1])).id;
       dispatch(setCurrentUser(userId, user));
+
+      tournamentService.setToken(user.token);
 
       window.localStorage.setItem(loggedInUserStorageKey, JSON.stringify(user));
 
@@ -47,6 +52,7 @@ const LoginControl = () => {
   const logoutUser = () => {
     window.localStorage.removeItem(loggedInUserStorageKey);
     dispatch(clearCurrentUser());
+    tournamentService.setToken('');
   };
 
   return (
