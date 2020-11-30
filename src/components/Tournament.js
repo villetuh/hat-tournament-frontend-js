@@ -81,7 +81,7 @@ const Tournament = () => {
           <CreateTeam createTeam={handleCreateTeam} tournamentLink={`/tournaments/${tournament.id}`} />
           { teams &&
             <div>
-              <Teams teams={teams} deleteTeam={handleDeleteTeam} />
+              <Teams tournament={tournament} teams={teams} players={players} deleteTeam={handleDeleteTeam} />
             </div>
           }
         </div>

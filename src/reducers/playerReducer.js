@@ -49,6 +49,18 @@ export const movePlayerToPlayerPool = (tournament, player, playerPool) => {
   };
 };
 
+export const movePlayerToTeam = (tournament, player, team) => {
+  return async dispatch => {
+    player.team = team === null ? null : team.id;
+    const updatedPlayer = await tournamentService.updatePlayer(tournament, player);
+
+    dispatch({
+      type: 'UPDATE_PLAYER',
+      data: updatedPlayer
+    });
+  };
+};
+
 export const deletePlayer = (tournament, player) => {
   return async dispatch => {
     await tournamentService.removePlayer(tournament, player);
