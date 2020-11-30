@@ -8,6 +8,8 @@ const playerReducer = (state = [], action) => {
       return action.data;
     case 'REMOVE_PLAYER':
       return state.filter(player => player.id !== action.data.id);
+    case 'UPDATE_PLAYER':
+      return state.map(player => player.id === action.data.id ? action.data : player);
     default:
       return state;
   }
@@ -31,6 +33,18 @@ export const createPlayer = (tournament, player) => {
     dispatch({
       type: 'NEW_PLAYER',
       data: newPlayer
+    });
+  };
+};
+
+export const movePlayerToPlayerPool = (tournament, player, playerPool) => {
+  return async dispatch => {
+    player.playerPool = playerPool === null ? null : playerPool.id;
+    const updatedPlayer = await tournamentService.updatePlayer(tournament, player);
+
+    dispatch({
+      type: 'UPDATE_PLAYER',
+      data: updatedPlayer
     });
   };
 };

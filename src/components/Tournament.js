@@ -65,14 +65,16 @@ const Tournament = () => {
           <CreatePlayer createPlayer={handleCreatePlayer} tournamentLink={`/tournaments/${tournament.id}`} />
           { players &&
             <div>
-              <Players players={players} deletePlayer={handleDeletePlayer} />
+              <Players
+                players={players}
+                deletePlayer={handleDeletePlayer} />
             </div>
           }
           <h3>PlayerPools</h3>
           <CreatePlayerPool createPlayerPool={handleCreatePlayerPool} tournamentLink={`/tournaments/${tournament.id}`} />
           { playerPools &&
             <div>
-              <PlayerPools playerPools={playerPools} deletePlayerPool={handleDeletePlayerPool} />
+              <PlayerPools tournament={tournament} playerPools={playerPools} players={players} deletePlayerPool={handleDeletePlayerPool} />
             </div>
           }
           <h3>Teams</h3>

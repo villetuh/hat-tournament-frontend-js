@@ -46,6 +46,14 @@ const createPlayer = async (tournament, player)  => {
   return response.data;
 };
 
+const updatePlayer = async (tournament, player)  => {
+  const config = {
+    headers: { Authorization: authorizationHeader }
+  };
+  const response = await axios.put(`${baseUrl}/${tournament.id}/players/${player.id}`, player, config);
+  return response.data;
+};
+
 const removePlayer = async (tournament, player) => {
   const config = {
     headers: { Authorization: authorizationHeader }
@@ -110,7 +118,7 @@ const setToken = token => {
 
 export default {
   getAll, create, remove,
-  getPlayers, createPlayer, removePlayer,
+  getPlayers, createPlayer, updatePlayer, removePlayer,
   getPlayerPools, createPlayerPool, removePlayerPool,
   getTeams, createTeam, removeTeam,
   setToken };
