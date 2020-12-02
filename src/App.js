@@ -7,7 +7,7 @@ import theme from './components/styled/theme';
 import { AppContainer, Page } from './components/styled/lib';
 
 import CreateTournament from './components/CreateTournament';
-import LoginControls from './components/LoginControls';
+import Header from './components/Header';
 import Tournament from './components/Tournament';
 import Tournaments from './components/Tournaments';
 
@@ -25,7 +25,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <AppContainer>
         <BrowserRouter>
-          <LoginControls />
+          <Header />
           <Page>
             <Switch>
               <Route exact path='/tournaments/add'>

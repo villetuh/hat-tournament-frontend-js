@@ -1,28 +1,41 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 
-import { deleteTournament } from '../reducers/tournamentReducer';
+import { PageTitle, SecondaryButton } from './styled/lib';
+
+const Container = styled.div`
+  margin-top: 30px;
+`;
+
+const TournamentItem = styled.div`
+  margin: 6px 0px;
+  padding: 8px 14px;
+`;
+
+const StyledLink = styled(Link)`
+  color: ${props => props.theme.colors.main};
+  text-decoration: none;
+`;
+
 
 const Tournaments = () => {
-  const dispatch = useDispatch();
   const tournaments = useSelector(state => state.tournaments);
-
-  const handleDeleteTournament = (tournament) => {
-    dispatch(deleteTournament(tournament));
-  };
 
   return (
     <div>
-      <h2>Tournaments</h2>
-      <Link to='/tournaments/add'>Create</Link>
-      {
-        tournaments
-          .map(tournament =>
-            <div key={tournament.id}>
-              <div><Link to={`/tournaments/${tournament.id}`}>{tournament.name}</Link><button onClick={() => handleDeleteTournament(tournament)}>Delete</button></div>
-            </div>)
-      }
+      <PageTitle>Tournaments</PageTitle>
+      <Link to='/tournaments/add'><SecondaryButton>New tournament</SecondaryButton></Link>
+      <Container>
+        {
+          tournaments
+            .map(tournament =>
+              <TournamentItem key={tournament.id}>
+                <StyledLink to={`/tournaments/${tournament.id}`}>{tournament.name}</StyledLink>
+              </TournamentItem>)
+        }
+      </Container>
     </div>
   );
 };

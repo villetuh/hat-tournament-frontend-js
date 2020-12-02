@@ -5,8 +5,11 @@ import { useParams } from 'react-router-dom';
 import { createPlayer, deletePlayer, initializePlayers } from '../reducers/playerReducer';
 import { createPlayerPool, deletePlayerPool, initializePlayerPools } from '../reducers/playerPoolReducer';
 import { createTeam, deleteTeam, initializeTeams, setPlayersToTeam } from '../reducers/teamReducer';
+import { deleteTournament } from '../reducers/tournamentReducer';
 
 import generateTeams from '../utils/teamGenerator';
+
+import { PageTitle, SecondaryTitle, PrimaryButton, SecondaryButton } from './styled/lib';
 
 import CreatePlayer from './CreatePlayer';
 import Players from './Players';
@@ -33,6 +36,10 @@ const Tournament = () => {
       dispatch(initializeTeams(tournament));
     }
   }, [tournament]);
+
+  const handleDeleteTournament = (tournament) => {
+    dispatch(deleteTournament(tournament));
+  };
 
   const handleCreatePlayer = (player) => {
     dispatch(createPlayer(tournament, player));
@@ -70,30 +77,23 @@ const Tournament = () => {
     <div>
       { tournament &&
         <div className='tournamentPage'>
-          <h2>{tournament.name}</h2>
-          <h3>Players</h3>
+          <PageTitle>{tournament.name}</PageTitle>
+          <SecondaryButton onClick={() => handleDeleteTournament(tournament)}>Delete</SecondaryButton>
+          <SecondaryTitle>Players</SecondaryTitle>
           <CreatePlayer createPlayer={handleCreatePlayer} tournamentLink={`/tournaments/${tournament.id}`} />
           { players &&
-            <div>
-              <Players
-                players={players}
-                deletePlayer={handleDeletePlayer} />
-            </div>
+            <Players players={players} deletePlayer={handleDeletePlayer} />
           }
-          <h3>PlayerPools</h3>
+          <SecondaryTitle>PlayerPools</SecondaryTitle>
           <CreatePlayerPool createPlayerPool={handleCreatePlayerPool} tournamentLink={`/tournaments/${tournament.id}`} />
           { playerPools &&
-            <div>
-              <PlayerPools tournament={tournament} playerPools={playerPools} players={players} deletePlayerPool={handleDeletePlayerPool} />
-            </div>
+            <PlayerPools tournament={tournament} playerPools={playerPools} players={players} deletePlayerPool={handleDeletePlayerPool} />
           }
-          <h3>Teams</h3>
+          <SecondaryTitle>Teams</SecondaryTitle>
           <CreateTeam createTeam={handleCreateTeam} tournamentLink={`/tournaments/${tournament.id}`} />
-          <button onClick={handleGenerateTeams}>Generate</button>
+          <PrimaryButton onClick={handleGenerateTeams}>Generate teams</PrimaryButton>
           { teams &&
-            <div>
-              <Teams tournament={tournament} teams={teams} players={players} deleteTeam={handleDeleteTeam} />
-            </div>
+            <Teams tournament={tournament} teams={teams} players={players} deleteTeam={handleDeleteTeam} />
           }
         </div>
       }

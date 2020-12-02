@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { SecondaryButton, TextInput } from './styled/lib';
+
 const CreatePlayer = ({ createPlayer, tournamentLink }) => {
   const history = useHistory();
 
@@ -15,9 +17,9 @@ const CreatePlayer = ({ createPlayer, tournamentLink }) => {
   return (
     <form className='create-player-form' onSubmit={handleFormSubmit} >
       <label>Name:</label>
-      <input id='create-player-name'
+      <TextInput id='create-player-name'
         name='playerName' />
-      <button type="submit">Create</button>
+      <SecondaryButton type="submit">Add</SecondaryButton>
     </form>
   );
 };

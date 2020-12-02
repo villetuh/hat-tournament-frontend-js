@@ -1,6 +1,8 @@
 import React from 'react';
 import { Draggable } from 'react-beautiful-dnd';
 
+import { ColumnItem } from './styled/lib';
+
 const PlayersList = ({ players }) => {
   function getStyle(style, snapshot) {
     if (!snapshot.isDragging) return {};
@@ -21,14 +23,14 @@ const PlayersList = ({ players }) => {
         <div key={player.id}>
           <Draggable draggableId={player.id} index={index}>
             {(provided, snapshot) =>
-              <div
+              <ColumnItem
                 ref={provided.innerRef}
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 style={getStyle(provided.draggableProps.style, snapshot)}
               >
                 {player.name}
-              </div>
+              </ColumnItem>
             }
           </Draggable>
         </div>)

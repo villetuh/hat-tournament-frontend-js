@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
 import loginService from '../services/login';
 import tournamentService from '../services/tournaments';
@@ -8,6 +9,12 @@ import { clearCurrentUser, setCurrentUser } from '../reducers/userReducer';
 
 import Login from './Login';
 import Logout from './Logout';
+
+const Container = styled.div`
+  margin-left: auto;
+  font-family: ${props => props.theme.fonts.title.fontFamily};
+  font-weight: ${props => props.theme.fonts.title.fontWeight};
+`;
 
 const LoginControl = () => {
 
@@ -56,12 +63,12 @@ const LoginControl = () => {
   };
 
   return (
-    <span>
+    <Container>
       { currentUser === null
         ? <Login loginUser={loginUser} />
         : <Logout name={currentUser.username} logoutUser={logoutUser} />
       }
-    </span>
+    </Container>
   );
 };
 

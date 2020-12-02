@@ -1,4 +1,14 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+
+import { LoginButton, TextInput } from './styled/lib';
+
+const Container = styled.div`
+`;
+
+const LoginTextInput = styled(TextInput)`
+  width: 8em;
+`;
 
 const Login = ({ loginUser }) => {
   const [username, setUsername] = useState('');
@@ -11,27 +21,27 @@ const Login = ({ loginUser }) => {
   };
 
   return (
-    <div>
+    <Container>
       <form onSubmit={handleLoginFormSubmit} >
-        <div>
-          username:
-          <input
+        <span>
+          Username:
+          <LoginTextInput
             type="text"
             value={username}
             name="Username"
             onChange={({ target }) => setUsername(target.value)} />
-        </div>
-        <div>
-          password:
-          <input
+        </span>
+        <span>
+          Password:
+          <LoginTextInput
             type="password"
             value={password}
             name="Password"
             onChange={({ target }) => setPassword(target.value)} />
-        </div>
-        <button type="submit">login</button>
+        </span>
+        <LoginButton type="submit">Login</LoginButton>
       </form>
-    </div>
+    </Container>
   );
 };
 

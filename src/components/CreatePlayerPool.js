@@ -1,6 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
+import { SecondaryButton, TextInput } from './styled/lib';
+
 const CreatePlayerPool = ({ createPlayerPool, tournamentLink }) => {
   const history = useHistory();
 
@@ -15,9 +17,9 @@ const CreatePlayerPool = ({ createPlayerPool, tournamentLink }) => {
   return (
     <form className='create-playerpool-form' onSubmit={handleFormSubmit} >
       <label>Name:</label>
-      <input id='create-playerpool-name'
+      <TextInput id='create-playerpool-name'
         name='playerPoolName' />
-      <button type="submit">Create</button>
+      <SecondaryButton type="submit">Add</SecondaryButton>
     </form>
   );
 };

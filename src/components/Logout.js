@@ -1,11 +1,13 @@
 import React from 'react';
 
+import { LogoutButton } from './styled/lib';
+
 const Logout = ({ name, logoutUser }) => (
   <div>
     User: {name}
-    <button onClick={logoutUser}>
+    <LogoutButton onClick={logoutUser}>
       Logout
-    </button>
+    </LogoutButton>
   </div>
 );
 
