@@ -4,7 +4,9 @@ import { useParams } from 'react-router-dom';
 
 import { createPlayer, deletePlayer, initializePlayers } from '../reducers/playerReducer';
 import { createPlayerPool, deletePlayerPool, initializePlayerPools } from '../reducers/playerPoolReducer';
-import { createTeam, deleteTeam, initializeTeams } from '../reducers/teamReducer';
+import { createTeam, deleteTeam, initializeTeams, setPlayersToTeam } from '../reducers/teamReducer';
+
+import generateTeams from '../utils/teamGenerator';
 
 import CreatePlayer from './CreatePlayer';
 import Players from './Players';
@@ -56,6 +58,14 @@ const Tournament = () => {
     dispatch(deleteTeam(tournament, team));
   };
 
+  const handleGenerateTeams = () => {
+    const generatedTeams = generateTeams(playerPools, teams.length);
+
+    for (var i = 0; i < teams.length; i++) {
+      dispatch(setPlayersToTeam(tournament, teams[i], players.filter(player => generatedTeams[i].includes(player.id))));
+    }
+  };
+
   return (
     <div>
       { tournament &&
@@ -79,6 +89,7 @@ const Tournament = () => {
           }
           <h3>Teams</h3>
           <CreateTeam createTeam={handleCreateTeam} tournamentLink={`/tournaments/${tournament.id}`} />
+          <button onClick={handleGenerateTeams}>Generate</button>
           { teams &&
             <div>
               <Teams tournament={tournament} teams={teams} players={players} deleteTeam={handleDeleteTeam} />

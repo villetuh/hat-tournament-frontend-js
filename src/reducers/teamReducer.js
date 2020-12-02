@@ -8,6 +8,8 @@ const teamReducer = (state = [], action) => {
       return action.data;
     case 'REMOVE_TEAM':
       return state.filter(team => team.id !== action.data.id);
+    case 'UPDATE_TEAM':
+      return state.map(team => team.id === action.data.id ? action.data : team);
     default:
       return state;
   }
@@ -43,6 +45,28 @@ export const deleteTeam = (tournament, team) => {
       type: 'REMOVE_TEAM',
       data: team
     });
+  };
+};
+
+export const setPlayersToTeam = (tournament, team, players) => {
+  return async dispatch => {
+    team.players = players.map(player => player.id);
+    const updatedTeam = await tournamentService.updateTeam(tournament, team);
+
+    dispatch({
+      type: 'UPDATE_TEAM',
+      data: updatedTeam
+    });
+
+    for (var player of players) {
+      dispatch({
+        type: 'UPDATE_PLAYER',
+        data: {
+          ...player,
+          team: team.id
+        }
+      });
+    }
   };
 };
 
