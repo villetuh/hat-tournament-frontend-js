@@ -8,6 +8,7 @@ const CreateTeam = ({ createTeam, tournamentLink }) => {
     event.preventDefault();
     createTeam({ name: event.target.teamName.value });
 
+    event.target.teamName.value = '';
     history.push(tournamentLink);
   };
 

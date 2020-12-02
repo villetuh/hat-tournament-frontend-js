@@ -8,6 +8,7 @@ const CreatePlayerPool = ({ createPlayerPool, tournamentLink }) => {
     event.preventDefault();
     createPlayerPool({ name: event.target.playerPoolName.value });
 
+    event.target.playerPoolName.value = '';
     history.push(tournamentLink);
   };
 
