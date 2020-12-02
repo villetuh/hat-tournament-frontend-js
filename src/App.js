@@ -8,6 +8,7 @@ import { AppContainer, Page } from './components/styled/lib';
 
 import CreateTournament from './components/CreateTournament';
 import Header from './components/Header';
+import LandingPage from './components/LandingPage';
 import Tournament from './components/Tournament';
 import Tournaments from './components/Tournaments';
 
@@ -39,7 +40,7 @@ function App() {
               </Route>
             </Switch>
             <Route exact path='/'>
-              {currentUser ? <Redirect to='/tournaments' /> : <div className='LandingPage'></div>}
+              {currentUser ? <Redirect to='/tournaments' /> : <LandingPage />}
             </Route>
           </Page>
         </BrowserRouter>
