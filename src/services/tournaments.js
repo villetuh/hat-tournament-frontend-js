@@ -8,8 +8,16 @@ const getAll = async () => {
     headers: { Authorization: authorizationHeader }
   };
 
-  const response = await axios.get(baseUrl, config);
-  return response.data;
+  if (authorizationHeader === null) {
+    return [];
+  }
+
+  try {
+    const response = await axios.get(baseUrl, config);
+    return response.data;
+  } catch (Error) {
+    return [];
+  }
 };
 
 const create = async newTournament  => {
@@ -121,7 +129,11 @@ const removeTeam = async (tournament, team) => {
 };
 
 const setToken = token => {
-  authorizationHeader = `bearer ${token}`;
+  if (token === null) {
+    authorizationHeader = null;
+  } else {
+    authorizationHeader = `bearer ${token}`;
+  }
 };
 
 export default {

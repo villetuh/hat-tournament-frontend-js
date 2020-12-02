@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import loginService from '../services/login';
@@ -17,6 +18,8 @@ const Container = styled.div`
 `;
 
 const LoginControl = () => {
+  const history = useHistory();
+  const location = useLocation();
 
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.currentUser.user);
@@ -26,6 +29,7 @@ const LoginControl = () => {
   useEffect(() => {
     const storedUserJSON = window.localStorage.getItem(loggedInUserStorageKey);
     if (storedUserJSON === null) {
+      history.push('/');
       return;
     }
 
@@ -42,13 +46,15 @@ const LoginControl = () => {
     try {
       const user = await loginService.login({ username, password });
       const userId = JSON.parse(atob(user.token.split('.')[1])).id;
-      dispatch(setCurrentUser(userId, user));
-
       tournamentService.setToken(user.token);
+      dispatch(setCurrentUser(userId, user));
 
       window.localStorage.setItem(loggedInUserStorageKey, JSON.stringify(user));
 
       success = true;
+      if (location.pathname === '/') {
+        history.push('/tournaments');
+      }
     } catch (exception) {
       console.log('Wrong credentials');
     }
@@ -59,7 +65,9 @@ const LoginControl = () => {
   const logoutUser = () => {
     window.localStorage.removeItem(loggedInUserStorageKey);
     dispatch(clearCurrentUser());
-    tournamentService.setToken('');
+    tournamentService.setToken(null);
+
+    history.push('/');
   };
 
   return (

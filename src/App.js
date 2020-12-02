@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import theme from './components/styled/theme';
@@ -20,29 +20,36 @@ function App() {
 
   useEffect(() => {
     dispatch(initializeTournaments());
-  }, [dispatch]);
+  }, [currentUser]);
 
   return (
     <ThemeProvider theme={theme}>
       <AppContainer>
         <BrowserRouter>
           <Header />
-          <Page>
-            <Switch>
-              <Route exact path='/tournaments/add'>
-                <CreateTournament />
+          { currentUser === null &&
+            <Page>
+              <LandingPage />
+            </Page>
+          }
+          { currentUser &&
+            <Page>
+              <Switch>
+                <Route exact path='/tournaments/add'>
+                  <CreateTournament />
+                </Route>
+                <Route path='/tournaments/:id'>
+                  <Tournament />
+                </Route>
+                <Route path='/tournaments'>
+                  <Tournaments />
+                </Route>
+              </Switch>
+              <Route exact path='/'>
+                <LandingPage />
               </Route>
-              <Route path='/tournaments/:id'>
-                <Tournament />
-              </Route>
-              <Route path='/tournaments'>
-                <Tournaments />
-              </Route>
-            </Switch>
-            <Route exact path='/'>
-              {currentUser ? <Redirect to='/tournaments' /> : <LandingPage />}
-            </Route>
-          </Page>
+            </Page>
+          }
         </BrowserRouter>
       </AppContainer>
     </ThemeProvider>
