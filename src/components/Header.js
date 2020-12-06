@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { AppTitle, HeaderContainer } from './styled/lib';
+import { HeaderContainer } from './styled/lib';
 import LoginControls from './LoginControls';
+import Navigation from './Navigation';
 
 const Header = () => {
   return (
     <HeaderContainer>
-      <AppTitle>HattyApp</AppTitle>
+      <Navigation />
       <LoginControls />
     </HeaderContainer>
   );

@@ -17,12 +17,6 @@ export const Page = styled.div`
   font-family: ${props => props.theme.fonts.main.fontFamily};
 `;
 
-export const AppTitle = styled.h1`
-  font-family: ${props => props.theme.fonts.title.fontFamily};
-  font-weight: ${props => props.theme.fonts.title.fontWeight};
-  margin: 0px;
-`;
-
 export const PageTitle = styled.h2`
   font-family: ${props => props.theme.fonts.title.fontFamily};
   font-weight: ${props => props.theme.fonts.title.fontWeight};
