@@ -1,5 +1,7 @@
 import axios from 'axios';
-const baseUrl = '/api/tournaments';
+
+// eslint-disable-next-line no-undef
+const baseUrl = process.env.REACT_APP_API_URL + '/api/tournaments';
 
 let authorizationHeader = null;
 
